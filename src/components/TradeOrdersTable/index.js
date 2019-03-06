@@ -36,6 +36,7 @@ function TradeOrdersTable(props) {
       tenure : order.tenure,
 
       tradeToken : order.tradeToken,
+      tradeAmount : order.tradeAmount,
 
       premium : order.premium + "%",
       status : order.status
@@ -92,6 +93,11 @@ function TradeOrdersTable(props) {
     {
       Header: "Principal Token",
       accessor: "principalToken"
+    },
+    {
+      Header: "Trade",
+      accessor: "tradeAmount",
+      className: "right",
     },
     {
       Header: "Trade Token",
