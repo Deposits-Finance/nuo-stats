@@ -3,6 +3,25 @@ module.exports = {
   TRADE_TYPE : 2,
   MKERNEL_ADDRESS : "0xa1d5d13836c07d1b1cb658f47f1111a3967b8430",
   MKERNEL_ABI : [
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "initialTradeAmount",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
 	{
 		"constant": true,
 		"inputs": [

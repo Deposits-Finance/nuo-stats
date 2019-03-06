@@ -234,6 +234,7 @@ async function LoadTradeOrders() {
 
     var order = await mkernelContract.methods.getOrder(orderId).call();
     var trade = await mkernelContract.methods.getTrade(orderId).call();
+    var initialTradeAmount = await mkernelContract.methods.initialTradeAmount(orderId).call();
 
     currentProgress = "(" + i + " / " + allOrdersRaw.length + ")";
 
@@ -248,7 +249,7 @@ async function LoadTradeOrders() {
 
 	    var collateralAddress = order["_collateralToken"];
 	    var collateralDecimals = TokenDecimals(collateralAddress)
-	    var collateralAmount = parseFloat((order["_collateralAmount"] / 10**collateralDecimals).toFixed(4));    
+	    var collateralAmount = parseFloat((order["_collateralAmount"] / 10**collateralDecimals).toFixed(4));
 	    
 	    var principalAddress = order["_principalToken"];
 	    var principalToken = TokenSymbol(principalAddress);
@@ -257,7 +258,8 @@ async function LoadTradeOrders() {
       
 	    var tradeAddress = trade;//["_tradeToken"];
 	    var tradeToken = TokenSymbol(tradeAddress);
-      var tradeAmount = parseFloat((order["_principalAmount"] / 10**principalDecimals).toFixed(4));
+	    var tradeDecimals = TokenDecimals(tradeAddress);
+      var tradeAmount = parseFloat((initialTradeAmount / 10**tradeDecimals).toFixed(4));
 
       // var stopLoss = trade["_stopLoss"];
       // var stopProfit = trade["_stopProfit"];
