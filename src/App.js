@@ -126,9 +126,6 @@ async function LoadReserves() {
   });
 
   app.setState({});
-
-  LoadTradeOrders();
-  LoadOpenOrders();
 }
 
 async function LoadOpenOrders() {
@@ -365,16 +362,19 @@ function App(props) {
 
   // set the connector for web3 based on availability
   if (context.connectorName === undefined) {
-    if (window.web3 === undefined) {
-      context.setConnector("Infura");
-    } else {
-      context.setConnector("MetaMask");
-    }
+    // if (window.web3 === undefined) {
+    //   context.setConnector("Infura");
+    // } else {
+    //   context.setConnector("MetaMask");
+    // }
+    context.setConnector("Infura");
   } else {
     if (web3 === null) {
       web3 = context.library;
       
       LoadReserves();
+      LoadTradeOrders();
+      LoadOpenOrders();
     }
   }
 

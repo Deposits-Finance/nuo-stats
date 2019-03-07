@@ -7,17 +7,17 @@ import './index.css';
 const InfuraConstants = require('./constants/Infura.js');
 
 const {
-  MetaMaskConnector,
+  // MetaMaskConnector,
   NetworkOnlyConnector
 } = Connectors;
 
-const MetaMask = new MetaMaskConnector();
+// const MetaMask = new MetaMaskConnector();
 
 const Infura = new NetworkOnlyConnector({
   providerURL: InfuraConstants.URL
 });
 
-const connectors = { MetaMask, Infura };
+const connectors = { Infura };
 
 var app = null;
 
