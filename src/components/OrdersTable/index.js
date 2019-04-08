@@ -17,6 +17,11 @@ function OrdersTable(props) {
 
   var orders;
   orders = props.orders.sort((a,b) => (a.createdTimestamp < b.createdTimestamp) ? 1 : ((b.createdTimestamp < a.createdTimestamp) ? -1 : 0));
+  var activeOrders = orders.filter(function(active) {
+    return active.status == "Active";
+  })
+  var totalUsers = [...new Set(orders.map(item => item.account))];
+  var activeUsers = [...new Set(activeOrders.map(item => item.account))];
 
   orders.forEach(order => {
     var createdTime = formatCreatedDate(order.createdTime, order.createdTimestamp);
@@ -48,16 +53,16 @@ function OrdersTable(props) {
       accessor: "id",
       maxWidth: 100
     },
-    {
-      Header: "User",
-      accessor: "user",
-      maxWidth: 100,
-      Cell: row => (
-        <a href={etherScanPrefix + row.value} target="_blank" rel="noopener noreferrer">
-          {row.value}
-        </a>
-      )
-    },
+    // {
+    //   Header: "User",
+    //   accessor: "user",
+    //   maxWidth: 100,
+    //   Cell: row => (
+    //     <a href={etherScanPrefix + row.value} target="_blank" rel="noopener noreferrer">
+    //       {row.value}
+    //     </a>
+    //   )
+    // },
     {
       Header: "Account",
       accessor: "account",
@@ -136,7 +141,10 @@ function OrdersTable(props) {
 
   return (
     <div className="OrdersTable">    
-      <p><b>Loans: {props.orders.length}</b></p> 
+      <p><b>Total Loans: {props.orders.length}</b>
+      <b> Active Loans: {activeOrders.length},</b>
+      <b> Total Users: {totalUsers.length},</b>
+      <b> Active Users: {activeUsers.length}</b></p>
       <ReactTable
         data={data}
         columns={columns}        

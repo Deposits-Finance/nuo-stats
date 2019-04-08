@@ -128,8 +128,8 @@ async function LoadReserves() {
   app.setState({});
 }
 
-async function LoadOpenOrders() {
-  var kernelContract = new web3.eth.Contract(NuoConstants.KERNEL_ABI, NuoConstants.KERNEL_ADDRESS);
+async function LoadOpenOrders(abi, address) {
+  var kernelContract = new web3.eth.Contract(abi, address);
 
   var allOrdersRaw = await kernelContract.methods.getAllOrders().call();
 
@@ -205,7 +205,7 @@ async function LoadOpenOrders() {
     console.log(order);
     i++;
     if(i == allOrdersRaw.length-1)
-      await LoadOrderStatuses(NuoConstants.LOAN_TYPE, kernelOrders, NuoConstants.KERNEL_ABI, NuoConstants.KERNEL_ADDRESS);
+      await LoadOrderStatuses(NuoConstants.LOAN_TYPE, kernelOrders, abi, address);
   });
 
   loadingState = "";
@@ -213,8 +213,8 @@ async function LoadOpenOrders() {
   app.setState({});  
 }
 
-async function LoadTradeOrders() {
-  var mkernelContract = new web3.eth.Contract(NuoConstants.MKERNEL_ABI, NuoConstants.MKERNEL_ADDRESS);
+async function LoadTradeOrders(address) {
+  var mkernelContract = new web3.eth.Contract(NuoConstants.MKERNEL_ABI, address);
 
   var allOrdersRaw = await mkernelContract.methods.getAllOrders().call();
 
@@ -304,7 +304,7 @@ async function LoadTradeOrders() {
     console.log(order, trade);
     i++;
     if(i == allOrdersRaw.length-1)
-      await LoadOrderStatuses(NuoConstants.TRADE_TYPE, mkernelOrders, NuoConstants.MKERNEL_ABI, NuoConstants.MKERNEL_ADDRESS);
+      await LoadOrderStatuses(NuoConstants.TRADE_TYPE, mkernelOrders, NuoConstants.MKERNEL_ABI, address);
   });
 
   loadingState = "";
@@ -373,8 +373,10 @@ function App(props) {
       web3 = context.library;
       
       LoadReserves();
-      LoadTradeOrders();
-      LoadOpenOrders();
+      LoadTradeOrders(NuoConstants.MKERNEL_ADDRESS2);
+      LoadTradeOrders(NuoConstants.MKERNEL_ADDRESS1);
+      LoadOpenOrders(NuoConstants.KERNEL_ABI2, NuoConstants.KERNEL_ADDRESS2);
+      LoadOpenOrders(NuoConstants.KERNEL_ABI1, NuoConstants.KERNEL_ADDRESS1);
     }
   }
 
