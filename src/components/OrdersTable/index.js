@@ -21,7 +21,7 @@ function OrdersTable(props) {
     return active.status == "Active";
   })
   var totalUsers = [...new Set(orders.map(item => item.account))];
-  var activeUsers = [...new Set(activeOrders.map(item => item.account))];
+  // var activeUsers = [...new Set(activeOrders.map(item => item.account))];
 
   orders.forEach(order => {
     var createdTime = formatCreatedDate(order.createdTime, order.createdTimestamp);
@@ -142,9 +142,7 @@ function OrdersTable(props) {
   return (
     <div className="OrdersTable">    
       <p><b>Total Loans: {props.orders.length}</b>
-      <b> Active Loans: {activeOrders.length},</b>
-      <b> Total Users: {totalUsers.length},</b>
-      <b> Active Users: {activeUsers.length}</b></p>
+      <b> Total Users: {totalUsers.length},</b></p>
       <ReactTable
         data={data}
         columns={columns}        

@@ -17,11 +17,10 @@ function TradeOrdersTable(props) {
   
   var orders;
   orders = props.orders.sort((a,b) => (a.createdTimestamp < b.createdTimestamp) ? 1 : ((b.createdTimestamp < a.createdTimestamp) ? -1 : 0));
-  var activeOrders = orders.filter(function(active) {
-    return active.status == "Active";
-  })
+  // var activeOrders = orders.filter(function(active) {
+  //   return active.status == "Active";
+  // })
   var totalUsers = [...new Set(orders.map(item => item.account))];
-  var activeUsers = [...new Set(activeOrders.map(item => item.account))];
 
   orders.forEach(order => {
     var createdTime = formatCreatedDate(order.createdTime, order.createdTimestamp);
@@ -154,9 +153,7 @@ function TradeOrdersTable(props) {
   return (
     <div className="TradeOrdersTable">    
       <p><b>Total Trades: {props.orders.length},</b>
-      <b> Active Trades: {activeOrders.length},</b>
-      <b> Total Users: {totalUsers.length},</b>
-      <b> Active Users: {activeUsers.length}</b></p>
+      <b> Total Users: {totalUsers.length},</b></p>
       <ReactTable
         data={data}
         columns={columns}        
