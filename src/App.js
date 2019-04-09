@@ -373,8 +373,10 @@ function App(props) {
       web3 = context.library;
       
       LoadReserves();
+      LoadTradeOrders(NuoConstants.MKERNEL_ADDRESS3);
       LoadTradeOrders(NuoConstants.MKERNEL_ADDRESS2);
       LoadTradeOrders(NuoConstants.MKERNEL_ADDRESS1);
+      LoadOpenOrders(NuoConstants.KERNEL_ABI2, NuoConstants.KERNEL_ADDRESS3);
       LoadOpenOrders(NuoConstants.KERNEL_ABI2, NuoConstants.KERNEL_ADDRESS2);
       LoadOpenOrders(NuoConstants.KERNEL_ABI1, NuoConstants.KERNEL_ADDRESS1);
     }
